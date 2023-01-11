@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using GuruDemoProject.Base;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
@@ -9,26 +10,38 @@ using System.Threading.Tasks;
 
 namespace GuruDemoProject
 {
-    public class LoginUITest
+    public class LoginUITest : AutomationWrapper
     {
+
         [Test]
+     
        public void ValidTitleTest()
         {
-            IWebDriver driver = new ChromeDriver();
-            driver.Manage().Window.Maximize();
-            driver.Manage().Timeouts().ImplicitWait=TimeSpan.FromSeconds(20);
-           // driver.Url = "https://demo.guru99.com/";
-            driver.Url = "https://demo.guru99.com/test/login.html";
+          
             string actualTitle = driver.Title;
             Console.WriteLine(actualTitle);
-
-            // Assert.AreEqual(actualTitle, actualTitle);
-           // Assert.That(actualTitle, Is.EqualTo("Guru Bank Home Page"));
-            Assert.That(actualTitle, Is.EqualTo("Login Page"));
+            Assert.That(actualTitle, Is.EqualTo("Welcome: Mercury Tours"));
 
 
         }
+        [Test]
 
+        public void ValidateIdTest()
+        {
+           
+
+           string userNameId= driver.FindElement(By.XPath("//input[@name='userName']")).GetAttribute("name");
+            string passwordId = driver.FindElement(By.XPath("//input[@name='password']")).GetAttribute("name");
+            
+               Assert.That(userNameId, Is.EqualTo("userName"));
+               Assert.That(passwordId,Is.EqualTo("password"));
+
+
+
+
+
+
+        }
 
     }
 }
